@@ -7,6 +7,8 @@ The intention of this code is to collect metrics from a client system and report
 <h6>Usage 1.0</h6>
 Please read over the configuration files.
 You can currently launch from main.py or collect_http_metrics.py.
+<br>
+If thread count within each object grows over 50, the threads will be reset to minimize leaking.
 <hr>
 <h6>Config 1.1</h6>
 
