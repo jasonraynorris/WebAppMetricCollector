@@ -40,12 +40,13 @@ class HTTPMetricCollector(object):
         threads = []
         while True:
             try:
-                time.sleep(self.interval)
                 if len(threads) > self.max_connection_thread_count:
                     threads = []
                 threads.append(threading.Thread(target=self.collect_http_application_metric).start())
+                time.sleep(self.interval)
             except Exception as ex:
                 self.log(ex)
+                time.sleep(self.interval)
 
     def collect_http_application_metric(self):
         time_stamp = datetime.datetime.now().strftime("%d.%b %Y %H:%M:%S")

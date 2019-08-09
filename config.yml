@@ -11,7 +11,7 @@ application_targets:
       host_target_port: 80
       ssl: False
       request_file: http_get_google_example.txt
-      interval_timer : 3
+      interval_timer : 60
       log_level : Informational
       log_output_file : app1_log_output
       max_log_size : 50000
@@ -22,7 +22,7 @@ application_targets:
       host_target_port: 443
       ssl: True
       request_file: http_get_hp_example.txt
-      interval_timer : 3
+      interval_timer : 60
       log_level : Informational
       log_output_file : app2_log_output
       max_log_size : 50000
