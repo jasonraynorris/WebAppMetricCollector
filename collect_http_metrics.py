@@ -27,6 +27,8 @@ class HTTPMetricCollector(object):
         self.log_file_name = log_file_name;
         self.host_name = socket.gethostname()
         self.host_ip = socket.gethostbyname(self.host_name)
+        self.stop_threads = False
+
 
     def log(self,message=""):
         self.log_file = open("logs\\" + self.log_file_name, "a")
@@ -41,7 +43,9 @@ class HTTPMetricCollector(object):
         while True:
             try:
                 if len(threads) > self.max_connection_thread_count:
-                    threads = []
+                    self.stop_threads = True
+                elif len(threads) < 5:
+                    self.stop_threads = False
                 threads.append(threading.Thread(target=self.collect_http_application_metric).start())
                 time.sleep(self.interval)
             except Exception as ex:

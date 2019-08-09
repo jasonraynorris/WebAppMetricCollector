@@ -16,7 +16,7 @@ Please note the configuration file config.yml.
 1. Each application target will create a threaded instance.
 2. The request_file is located in the /Requests folder.
 3. It is not recommended to set the interval timer less than 60.
-4. If max_connection_thread_count is exceed, the threads will reset.  This is intended to control leaking.
+4. If max_connection_thread_count is exceed, the threads will stop until a low threshold of 5 is met.  This is intended to control leaking.
 
 <pre>
 source_location:
