@@ -8,6 +8,8 @@ with open("config.yml", 'r') as yamlfile:
     for ap, v in cfg["application_targets"].items():
         metric_collectors.append(HTTPMetricCollector(v["interval_timer"],
                                                      v["host_target"],
+                                                     v["host_target_port"],
+                                                     v["ssl"],
                                                      v["log_output_file"],
                                                      v["request_file"],
                                                      cfg["source_location"]["name"],

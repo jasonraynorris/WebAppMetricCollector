@@ -8,6 +8,8 @@ application_targets:
     app1:
       name: Google
       host_target: www.google.com
+      host_target_port: 443
+      ssl: True
       request_file: http_get_google_example.txt
       interval_timer : 3
       log_level : Informational
@@ -16,6 +18,8 @@ application_targets:
     app2:
       name: HP
       host_target: www.hp.com
+      host_target_port: 443
+      ssl: True
       request_file: http_get_hp_example.txt
       interval_timer : 3
       log_level : Informational

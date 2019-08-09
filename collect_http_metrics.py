@@ -6,16 +6,18 @@ import datetime
 import yaml
 import threading
 
-print = True
+print_out = True
 debug = False
 
 class HTTPMetricCollector(object):
-    def __init__(self,interval, targethost, log_file_name,request_file_name,site_name,site_number,site_region,application_name,max_log_size):
+    def __init__(self,interval, targethost,targetport,ssl_bool,log_file_name,request_file_name,site_name,site_number,site_region,application_name,max_log_size):
         self.application_name = application_name
         self.site_region = site_region
         self.site_number = site_number
         self.site_name = site_name
         self.targethost = targethost
+        self.targetport = targetport
+        self.ssl_bool = ssl_bool
         self.interval = interval
         self.context = ssl.create_default_context()
         request_file = open("Requests\\" + request_file_name,"r")
@@ -50,21 +52,24 @@ class HTTPMetricCollector(object):
         with socket.create_connection((self.targethost, 443)) as sock:
             cur_tcp_handshake_rtt = format((time.time() - start_tcp_handshake) * 1000,'.2f')
             target_ip, target_port = sock.getpeername()
-            start_ssl_negotiation = time.time()
-            with self.context.wrap_socket(sock, server_hostname=self.targethost) as ssock:
-                cur_ssl_negotiation_rtt = format(float((time.time() - start_ssl_negotiation)) * 1000,'.2f')
-                start_application_request = time.time()
-                """Sends all data before returning"""
-
-                ssock.sendall(self.encoded_request)
-                data_rx = ssock.recv(1024)
-                cur_request_to_return_rtt = format(float(time.time() - start_application_request) * 1000,'.2f')
-                """"""
-                ssock.close()
-                try:
-                    http_return_code = (data_rx.decode('utf-8').splitlines()[0])
-                except:
-                    http_return_code = "None"
+            if self.ssl_bool:
+                start_ssl_negotiation = time.time()
+                with self.context.wrap_socket(sock, server_hostname=self.targethost) as ssock:
+                    cur_ssl_negotiation_rtt = format(float((time.time() - start_ssl_negotiation)) * 1000,'.2f')
+                    start_application_request = time.time()
+                    """Sends all data before returning"""
+                    ssock.sendall(self.encoded_request)
+                    data_rx = ssock.recv(1024)
+                    ssock.close()
+            else:
+                cur_ssl_negotiation_rtt = 0
+                sock.sendall(self.encoded_request)
+                sock.close()
+            cur_request_to_return_rtt = format(float(time.time() - start_application_request) * 1000,'.2f')
+            try:
+                http_return_code = (data_rx.decode('utf-8').splitlines()[0])
+            except:
+                http_return_code = "None"
         cur_total_net_time_rtt = format(float(cur_tcp_handshake_rtt) + float(cur_ssl_negotiation_rtt),'.2f')
         cur_total_transaction_rtt = format(float(cur_total_net_time_rtt) + float(cur_request_to_return_rtt),'.2f')
         response_metrics = {
@@ -94,7 +99,7 @@ class HTTPMetricCollector(object):
                    }
 
         }
-        if print:
+        if print_out:
             print(self.encoded_request)
             print(json.dumps(response_metrics, indent=4))
         if debug:
@@ -109,6 +114,8 @@ if __name__ == '__main__':
         for ap, v in cfg["application_targets"].items():
             metric_collectors.append(HTTPMetricCollector(v["interval_timer"],
                                                           v["host_target"],
+                                                         v["host_target_port"],
+                                                         v["ssl"],
                                                           v["log_output_file"],
                                                           v["request_file"],
                                                           cfg["source_location"]["name"],
