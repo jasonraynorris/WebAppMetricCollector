@@ -29,20 +29,29 @@ application_targets:
     app1:
       name: Google
       host_target: www.google.com
-      get_request_file: http_get_google_example.txt
+      host_target_port: 80
+      ssl: False
+      request_file: http_get_google_example.txt
       interval_timer : 60
       log_level : Informational
       log_output_file : app1_log_output
       max_log_size : 50000
+      max_connection_thread_count : 20
     app2:
       name: HP
       host_target: www.hp.com
-      get_request_file: http_get_hp_example.txt
+      host_target_port: 443
+      ssl: True
+      request_file: http_get_hp_example.txt
       interval_timer : 60
       log_level : Informational
       log_output_file : app2_log_output
       max_log_size : 50000
+      max_connection_thread_count : 20
 </pre>
+<br>
+
+
 <hr>
 <h6>Logging 1.1</h6>
 The logging functions are currently per application.  I have not made it circular *yet.  When max log size is reached, the file will be recreated in order to keep disk impact minimized.
