@@ -8,8 +8,8 @@ application_targets:
     app1:
       name: Google
       host_target: www.google.com
-      host_target_port: 443
-      ssl: True
+      host_target_port: 80
+      ssl: False
       request_file: http_get_google_example.txt
       interval_timer : 3
       log_level : Informational
