@@ -10,7 +10,8 @@ print_out = True
 debug = False
 
 class HTTPMetricCollector(object):
-    def __init__(self,interval, targethost,targetport,ssl_bool,log_file_name,request_file_name,site_name,site_number,site_region,application_name,max_log_size):
+    def __init__(self,interval, targethost,targetport,ssl_bool,log_file_name,request_file_name,site_name,site_number,site_region,application_name,max_log_size,max_connection_thread_count):
+        self.max_connection_thread_count = max_connection_thread_count
         self.application_name = application_name
         self.site_region = site_region
         self.site_number = site_number
@@ -40,7 +41,7 @@ class HTTPMetricCollector(object):
         while True:
             try:
                 time.sleep(self.interval)
-                if len(threads) > 50:
+                if len(threads) > self.max_connection_thread_count:
                     threads = []
                 threads.append(threading.Thread(target=self.collect_http_application_metric).start())
             except Exception as ex:
@@ -121,7 +122,8 @@ if __name__ == '__main__':
                                                           cfg["source_location"]["name"],
                                                           cfg["source_location"]["number"],
                                                           cfg["source_location"]["region"],
-                                                          v["name"],v["max_log_size"]))
+                                                          v["name"],v["max_log_size"],
+                                                         v["max_connection_thread_count"]))
         for metric_collector in metric_collectors:
             threading.Thread(target=metric_collector.start_collection).start()
 

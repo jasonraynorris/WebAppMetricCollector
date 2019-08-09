@@ -15,6 +15,7 @@ with open("config.yml", 'r') as yamlfile:
                                                      cfg["source_location"]["name"],
                                                      cfg["source_location"]["number"],
                                                      cfg["source_location"]["region"],
-                                                     v["name"], v["max_log_size"]))
+                                                     v["name"], v["max_log_size"],
+                                                     v["max_connection_thread_count"]))
     for metric_collector in metric_collectors:
         threading.Thread(target=metric_collector.start_collection).start()

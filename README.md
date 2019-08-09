@@ -8,7 +8,6 @@ The intention of this code is to collect metrics from a client system and report
 Please read over the configuration files.
 You can currently launch from main.py or collect_http_metrics.py.
 <br>
-If thread count within each object grows over 50, the threads will be reset to minimize leaking.
 <hr>
 <h6>Config 1.1</h6>
 
@@ -16,6 +15,7 @@ Please note the configuration file config.yml.
 1. Each application target will create a threaded instance.
 2. The request_file is located in the Requests folder.
 3. It is not recommended to set the interval timer greater than 60.
+4. If max_connection_thread_count is exceed, the threads will reset.  This is intended to control leaking.
 
 <pre>
 source_location:

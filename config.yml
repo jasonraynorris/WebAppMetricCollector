@@ -15,6 +15,7 @@ application_targets:
       log_level : Informational
       log_output_file : app1_log_output
       max_log_size : 50000
+      max_connection_thread_count : 20
     app2:
       name: HP
       host_target: www.hp.com
@@ -25,4 +26,5 @@ application_targets:
       log_level : Informational
       log_output_file : app2_log_output
       max_log_size : 50000
+      max_connection_thread_count : 20
 
