@@ -4,6 +4,7 @@ Author: Jason Ray Norris
 <hr>
 The intention of this code is to collect metrics from a client system and report those metrics back to a central location.
 <hr>
+<b>!WARNING!: The config file is included as an example.  The example targets are currently google and hp.  Please do not use without evaluating the config.</b>
 <h6>Usage 1.0</h6>
 Please read over the configuration files.
 You can currently launch from main.py or collect_http_metrics.py.
