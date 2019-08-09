@@ -54,6 +54,7 @@ class HTTPMetricCollector(object):
         with socket.create_connection((self.targethost, self.targetport)) as sock:
             cur_tcp_handshake_rtt = format((time.time() - start_tcp_handshake) * 1000,'.2f')
             target_ip, target_port = sock.getpeername()
+
             if self.ssl_bool:
                 start_ssl_negotiation = time.time()
                 with self.context.wrap_socket(sock, server_hostname=self.targethost) as ssock:
@@ -62,9 +63,11 @@ class HTTPMetricCollector(object):
                     """Sends all data before returning"""
                     ssock.sendall(self.encoded_request)
                     data_rx = ssock.recv(1024)
+                    ssl_ver = ssock.version()
                     ssock.close()
             else:
                 cur_ssl_negotiation_rtt = 0
+                ssl_ver = "None"
                 start_application_request = time.time()
                 sock.sendall(self.encoded_request)
                 sock.close()
@@ -91,6 +94,7 @@ class HTTPMetricCollector(object):
             "transaction": {
                 "tcp_handshake_rtt" : str(cur_tcp_handshake_rtt),
                 "ssl_bool": str(self.ssl_bool),
+                "ssl_ver": ssl_ver,
                 "ssl_negotiation_rtt": str(cur_ssl_negotiation_rtt),
                 "application_rtt": str(cur_request_to_return_rtt),
                 "total_transaction_rtt": str(cur_total_transaction_rtt),
