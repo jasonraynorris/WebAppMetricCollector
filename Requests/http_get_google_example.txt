@@ -1,6 +1,6 @@
 GET / HTTP/1.1
-Host:www.hp.com
+Host:www.google.com
 Content-Type:application/json
-User-Agent:PerformanceTester
+User-Agent:PerformanceTest
 
 

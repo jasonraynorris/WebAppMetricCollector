@@ -1,0 +1,24 @@
+source_location:
+    name: source_location_example_name
+    number: source_location_example_number
+    region: source_location_example_region
+    host_name: source_location_example_name
+
+application_targets:
+    app1:
+      name: Google
+      host_target: www.google.com
+      request_file: http_get_google_example.txt
+      interval_timer : 3
+      log_level : Informational
+      log_output_file : app1_log_output
+      max_log_size : 50000
+    app2:
+      name: HP
+      host_target: www.hp.com
+      request_file: http_get_hp_example.txt
+      interval_timer : 3
+      log_level : Informational
+      log_output_file : app2_log_output
+      max_log_size : 50000
+
