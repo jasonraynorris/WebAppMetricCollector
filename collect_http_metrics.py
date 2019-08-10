@@ -13,14 +13,12 @@ class HTTPMetricCollector(object):
         self.debug = debug
         """print used to output http request and response metrics to terminal"""
         self.print_out = print_out
-
         """Site config information"""
         self.site_region = site_region
         self.site_number = site_number
         self.site_name = site_name
         self.host_name = socket.gethostname()
         self.host_ip = socket.gethostbyname(self.host_name)
-
         """application collection config information"""
         self.application_name = application_name
         self.targethost = targethost
@@ -35,13 +33,11 @@ class HTTPMetricCollector(object):
         self.max_connection_thread_count = max_connection_thread_count
         """build application request"""
         request_file = open("Requests\\" + request_file_name, "r")
-        user_agent = "%s.%s.%s" % (str(self.site_region), str(self.site_number), str(self.site_name))
+        user_agent = "%s(%s)" % (str(self.site_name),self.host_name)
         self.encoded_request = request_file.read().replace("<user-agent-generated>",
                                                            user_agent).encode()
-
         """prepare ssl context for use"""
         self.context = ssl.create_default_context()
-
     """log function to simplify some of the code"""
     def log(self,message=""):
         self.log_file = open("logs\\" + self.log_file_name, "a+")
@@ -49,7 +45,6 @@ class HTTPMetricCollector(object):
             self.log_file = open("logs\\" + self.log_file_name, "w+")
         self.log_file.write(message)
         self.log_file.close()
-
     """used to start threading application connections"""
     def start_collection(self):
         self.log()
@@ -65,7 +60,6 @@ class HTTPMetricCollector(object):
             except Exception as ex:
                 self.log(ex)
                 time.sleep(self.interval)
-
     """function used in threading to collect metrics"""
     def collect_http_application_metric(self):
         """timestamp start of every thread"""
@@ -140,7 +134,6 @@ class HTTPMetricCollector(object):
                 "site_region":self.site_region,
                    }
         }
-
         if self.print_out:
             """print http request"""
             print(self.encoded_request)
