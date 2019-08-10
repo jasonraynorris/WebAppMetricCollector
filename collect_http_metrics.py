@@ -31,7 +31,7 @@ class HTTPMetricCollector(object):
 
 
     def log(self,message=""):
-        self.log_file = open("logs\\" + self.log_file_name, "a")
+        self.log_file = open("logs\\" + self.log_file_name, "a+")
         if self.log_file.__sizeof__() > self.max_log_size:
             self.log_file = open("logs\\" + self.log_file_name, "w+")
 
@@ -39,6 +39,7 @@ class HTTPMetricCollector(object):
         self.log_file.close()
 
     def start_collection(self):
+        self.log()
         threads = []
         while True:
             try:
