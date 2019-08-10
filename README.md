@@ -19,11 +19,11 @@ Please note the configuration file config.yml.
 4. If max_connection_thread_count is exceed, the threads will stop until a low threshold of 5 is met.  This is intended to control leaking.
 
 <pre>
-source_location:
-    name: source_location_example_name
-    number: source_location_example_number
-    region: source_location_example_region
-    host_name: source_location_example_name
+source_site:
+    site_name: source_site_example_name
+    site_number: source_site_example_number
+    site_region: source_site_example_region
+    host_name: source_site_example_name
 
 application_targets:
     app1:
