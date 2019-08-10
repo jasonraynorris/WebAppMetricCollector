@@ -23,11 +23,10 @@ source_site:
     site_name: source_site_example_name
     site_number: source_site_example_number
     site_region: source_site_example_region
-    host_name: source_site_example_name
 
 application_targets:
-    app1:
-      name: Google
+
+   -  name: Google
       host_target: www.google.com
       host_target_port: 80
       ssl: False
@@ -37,8 +36,8 @@ application_targets:
       log_output_file : app1_log_output
       max_log_size : 50000
       max_connection_thread_count : 20
-    app2:
-      name: HP
+
+   -  name: HP
       host_target: www.hp.com
       host_target_port: 443
       ssl: True
@@ -48,6 +47,8 @@ application_targets:
       log_output_file : app2_log_output
       max_log_size : 50000
       max_connection_thread_count : 20
+
+
 </pre>
 <br>
 
