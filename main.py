@@ -12,9 +12,9 @@ with open("config.yml", 'r') as yamlfile:
                                                      v["ssl"],
                                                      v["log_output_file"],
                                                      v["request_file"],
-                                                     cfg["source_location"]["name"],
-                                                     cfg["source_location"]["number"],
-                                                     cfg["source_location"]["region"],
+                                                     cfg["source_site"]["name"],
+                                                     cfg["source_site"]["number"],
+                                                     cfg["source_site"]["region"],
                                                      v["name"], v["max_log_size"],
                                                      v["max_connection_thread_count"]))
     for metric_collector in metric_collectors:

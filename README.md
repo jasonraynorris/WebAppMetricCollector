@@ -7,7 +7,7 @@ The intention of this code is to collect metrics from a client system and report
 <b>!WARNING!: The config file is included as an example.  The example targets are currently google and hp.  Please do not use without evaluating the config.</b>
 <h6>Usage 1.0</h6>
 Please read over the configuration files.
-You can currently launch from main.py or collect_http_metrics.py.
+You can currently execute from main.py or collect_http_metrics.py.
 <br>
 <hr>
 <h6>Config 1.1</h6>
@@ -57,5 +57,12 @@ application_targets:
 The logging functions are currently per application.  I have not made it circular *yet.  When max log size is reached, the file will be recreated in order to keep disk impact minimized.
 <br>
 Logs are stored in the /logs folder.
+<h6>Cool Stuff To Know 1.2</h6>
+The HTTP UserAgent will be generated using:
+<pre>
+(location_region+location_number+location_name+host_name)
+
+</pre>
+
 
 

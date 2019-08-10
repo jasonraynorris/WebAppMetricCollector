@@ -21,11 +21,13 @@ class HTTPMetricCollector(object):
         self.ssl_bool = ssl_bool
         self.interval = interval
         self.context = ssl.create_default_context()
+        self.host_name = socket.gethostname()
         request_file = open("Requests\\" + request_file_name,"r")
-        self.encoded_request = request_file.read().encode()
+        user_agent = "%s.%s.%s" % (str(self.site_region),str(self.site_number),str(self.site_name))
         self.max_log_size = max_log_size
         self.log_file_name = log_file_name;
-        self.host_name = socket.gethostname()
+        self.encoded_request = request_file.read().replace("<user-agent-generated>",
+                                                           user_agent).encode()
         self.host_ip = socket.gethostbyname(self.host_name)
         self.stop_threads = False
 
@@ -74,6 +76,7 @@ class HTTPMetricCollector(object):
                 ssl_ver = "None"
                 start_application_request = time.time()
                 sock.sendall(self.encoded_request)
+                data_rx = sock.recv(1024)
                 sock.close()
             cur_request_to_return_rtt = format(float(time.time() - start_application_request) * 1000,'.2f')
             try:
@@ -104,7 +107,7 @@ class HTTPMetricCollector(object):
                 "total_transaction_rtt": str(cur_total_transaction_rtt),
                 "http_return_code":str(http_return_code)
                 },
-            "location":{
+            "Site":{
                 "site_name":self.site_name,
                 "site_number":self.site_number,
                 "site_region":self.site_region,
@@ -130,9 +133,9 @@ if __name__ == '__main__':
                                                          v["ssl"],
                                                           v["log_output_file"],
                                                           v["request_file"],
-                                                          cfg["source_location"]["name"],
-                                                          cfg["source_location"]["number"],
-                                                          cfg["source_location"]["region"],
+                                                          cfg["source_site"]["site_name"],
+                                                          cfg["source_site"]["site_number"],
+                                                          cfg["source_site"]["site_region"],
                                                           v["name"],v["max_log_size"],
                                                          v["max_connection_thread_count"]))
         for metric_collector in metric_collectors:

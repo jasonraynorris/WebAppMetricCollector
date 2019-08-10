@@ -1,7 +1,7 @@
 POST /go/here/ HTTP/1.1
 Host:www.test.com
 Content-Type:application/json
-User-Agent:PerformanceTester
+User-Agent:<user-agent-generated>
 
 
 { "testkeyA":"testvalA", "testkeyB":"testvalB", "testkeyC":"testvalC"}
