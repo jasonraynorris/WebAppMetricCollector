@@ -61,8 +61,8 @@ Logs are stored in the /logs folder.
 The HTTP UserAgent will be generated using:
 <pre>
 (site_region+site_number+site_name)
-
 </pre>
+This should allow you to easily identify the requests in transit.
 
 
 
