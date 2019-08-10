@@ -60,7 +60,7 @@ Logs are stored in the /logs folder.
 <h6>Cool Stuff To Know 1.2</h6>
 The HTTP UserAgent will be generated using:
 <pre>
-(location_region+location_number+location_name+host_name)
+(site_region+site_number+site_name)
 
 </pre>
 
