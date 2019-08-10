@@ -20,6 +20,7 @@ Please note the configuration file config.yml.
 
 <pre>
 source_site:
+
     site_name: source_site_example_name
     site_number: source_site_example_number
     site_region: source_site_example_region
