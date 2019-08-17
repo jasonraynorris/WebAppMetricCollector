@@ -67,9 +67,9 @@ The logging functions are currently per application.  I have not made it circula
 <br>
 Logs are stored in the /logs folder.
 <h6>Cool Stuff To Know 1.2</h6>
-The HTTP UserAgent will be generated using:
+The HTTP UserAgent will be generated using the following format:
 <pre>
-(site_region+site_number+site_name)
+site_name(host_name)
 </pre>
 This should allow you to easily identify the requests in transit.
 
