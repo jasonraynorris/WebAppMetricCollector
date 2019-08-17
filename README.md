@@ -5,6 +5,11 @@ Follow me on YouTube:https://www.youtube.com/channel/UC-juxWFp_IXOcc4qp2dn-vw
 <br>
 <hr>
 The intention of this code is to collect metrics from a client system and report those metrics back to a central location.
+<br>
+Metrics collected:
+    1. tcp_handshake
+    2. ssl_negotiation
+    3. http_request
 <hr>
 <b>!WARNING!: The config file is included as an example.  The example targets are currently google and hp.  Please do not use without evaluating the config.</b>
 <h6>Usage 1.0</h6>
